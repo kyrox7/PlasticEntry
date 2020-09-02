@@ -10,6 +10,7 @@
             <th>Name</th>
             <th>Code</th>
             <th>Price</th>
+            <th>Action</th>
         </tr>
         @foreach($products as $product)
         <tr>   
@@ -17,6 +18,13 @@
             <td>{{$product->name}}</td>
             <td>{{$product->code}}</td>
             <td>{{$product->price}}</td>
+            <td>
+                <a href="/products/{{$product->id}}/edit" class="btn btn-primary" style="float:left">Edit</a>
+                {!!Form::open(['action' => ['ProductsController@destroy', $product->id], 'method' => 'POST'])!!}
+                    {{Form::hidden('_method', 'DELETE')}}
+                    {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+                {!!Form::close()!!}
+            </td>
         </tr>
         @endforeach
     </table>
